@@ -1,0 +1,65 @@
+export type CountryRate = {
+  centsPerKm: number;
+  currency: "EUR";
+};
+
+const placeholderRate: CountryRate = {
+  centsPerKm: 100,
+  currency: "EUR"
+};
+
+export const COUNTRY_RATES: Record<string, CountryRate> = {
+  AD: placeholderRate,
+  AL: placeholderRate,
+  AM: placeholderRate,
+  AT: placeholderRate,
+  AZ: placeholderRate,
+  BA: placeholderRate,
+  BE: placeholderRate,
+  BG: placeholderRate,
+  BY: placeholderRate,
+  CH: placeholderRate,
+  CY: placeholderRate,
+  CZ: placeholderRate,
+  DE: placeholderRate,
+  "DE-BE": placeholderRate,
+  DK: placeholderRate,
+  EE: placeholderRate,
+  ES: placeholderRate,
+  FI: placeholderRate,
+  FR: placeholderRate,
+  GB: placeholderRate,
+  GE: placeholderRate,
+  GR: placeholderRate,
+  HR: placeholderRate,
+  HU: placeholderRate,
+  IE: placeholderRate,
+  IS: placeholderRate,
+  IT: placeholderRate,
+  LI: placeholderRate,
+  LT: placeholderRate,
+  LU: placeholderRate,
+  LV: placeholderRate,
+  MC: placeholderRate,
+  MD: placeholderRate,
+  ME: placeholderRate,
+  MK: placeholderRate,
+  MT: placeholderRate,
+  NL: placeholderRate,
+  "NL-BE": placeholderRate,
+  NO: placeholderRate,
+  PL: placeholderRate,
+  PT: placeholderRate,
+  RO: placeholderRate,
+  RS: placeholderRate,
+  RU: placeholderRate,
+  SE: placeholderRate,
+  SI: placeholderRate,
+  "SI-HR": placeholderRate,
+  SK: placeholderRate,
+  SM: placeholderRate,
+  TR: placeholderRate,
+  UA: placeholderRate,
+  VA: placeholderRate,
+  XK: placeholderRate
+};

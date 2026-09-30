@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-freight_platform_staging}
+      POSTGRES_USER: ${POSTGRES_USER:-freight}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-freight} -d ${POSTGRES_DB:-freight_platform_staging}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env.staging
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-freight}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-freight_platform_staging}?schema=public
+      PORT: 4000
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+
+  caddy:
+    image: caddy:2.8
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env.staging
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:
